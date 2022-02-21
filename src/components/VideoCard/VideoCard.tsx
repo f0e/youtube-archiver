@@ -58,7 +58,7 @@ export const VideoCard = ({
 	const videoLink = (children: any) =>
 		basicVideo.downloaded ? (
 			<ConditionalLink
-				to={`/watch?v=${basicVideo.videoId}`}
+				to={`/watch/${basicVideo.videoId}`}
 				condition={basicVideo.downloaded}>
 				{children}
 			</ConditionalLink>

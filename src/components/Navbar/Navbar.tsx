@@ -9,7 +9,7 @@ import styles from './Navbar.module.scss';
 const Navbar = (): ReactElement => {
 	return (
 		<div className={styles.navbar}>
-			<Link href="/" passHref>
+			<Link href="/">
 				<a className={styles.navbarTitle}>bhop archive</a>
 			</Link>
 

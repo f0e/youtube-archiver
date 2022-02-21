@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react';
 
 import { Button } from '@mantine/core';
-import dayjs from 'dayjs';
 import { NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -10,7 +9,7 @@ import styles from './index.module.scss';
 
 const Home: NextPage = () => {
 	return (
-		<main className={styles.homePage}>
+		<main>
 			<Head>
 				<title>bhop archive</title>
 			</Head>

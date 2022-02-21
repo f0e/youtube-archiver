@@ -9,6 +9,7 @@ interface LoadingImageProps {
 	src: string;
 	alt: string;
 	unoptimized?: boolean;
+	priority?: boolean;
 }
 
 const LoadingImage = ({
@@ -16,10 +17,9 @@ const LoadingImage = ({
 	src,
 	alt,
 	unoptimized,
+	priority,
 }: LoadingImageProps): ReactElement => {
 	const [loaded, setLoaded] = useState(false);
-
-	console.log('loaded', loaded);
 
 	return (
 		<Image
@@ -31,7 +31,7 @@ const LoadingImage = ({
 			alt={alt}
 			layout="fill"
 			unoptimized={unoptimized}
-			priority
+			priority={priority}
 		/>
 	);
 };

@@ -12,4 +12,7 @@ const rewritesConfig = isDevelopment
 module.exports = {
 	reactStrictMode: true,
 	rewrites: async () => rewritesConfig,
+	images: {
+		domains: ['yt3.ggpht.com'],
+	},
 };

@@ -5,8 +5,10 @@ import React, {
 	useRef,
 	useState,
 } from 'react';
+import { NextPage } from 'next';
+import Head from 'next/head';
 import { Button, TextInput } from '@mantine/core';
-import { useDocumentTitle, useForm } from '@mantine/hooks';
+import { useForm } from '@mantine/hooks';
 import { useRouter } from 'next/router';
 import CountUp from 'react-countup';
 
@@ -213,14 +215,12 @@ const DownloadedCount = (): ReactElement => {
 	);
 };
 
-const Browse = (): ReactElement => {
+const Browse: NextPage = () => {
 	const [channels, setChannels] = useState(new ApiState());
 
 	const router = useRouter();
 
 	const Api = useContext(ApiContext);
-
-	useDocumentTitle('bhop archive | browse');
 
 	useEffect(() => {
 		Api.getState(setChannels, '/api/get-channels');
@@ -228,6 +228,10 @@ const Browse = (): ReactElement => {
 
 	return (
 		<main>
+			<Head>
+				<title>bhop archive - browse</title>
+			</Head>
+
 			<h1 style={{ marginBottom: '0.5rem' }}>browse</h1>
 			<DownloadedCount />
 			<br />
