@@ -14,6 +14,12 @@ export default class _Document extends Document {
 						href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=optional"
 						rel="stylesheet"
 					/>
+					<script
+						type="text/javascript"
+						dangerouslySetInnerHTML={{
+							__html: `const theme = localStorage.getItem('theme'); if (theme) document.documentElement.dataset.theme = theme;`,
+						}}
+					/>
 				</Head>
 
 				<body>

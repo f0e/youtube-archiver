@@ -8,7 +8,7 @@ const DarkModeToggler = (): ReactElement => {
 	const { darkTheme, toggleDarkTheme } = useContext(ThemeContext);
 
 	return (
-		<div className="dark-toggler">
+		<div>
 			<ActionIcon
 				variant={darkTheme ? 'filled' : 'outline'}
 				color="indigo"

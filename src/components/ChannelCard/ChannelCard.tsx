@@ -39,7 +39,6 @@ export const ChannelCard = ({
 						<LoadingImage
 							src={channel.data.authorThumbnails.at(-1).url}
 							alt={`${channel.data.author}'s avatar`}
-							unoptimized
 						/>
 					)}
 				</div>

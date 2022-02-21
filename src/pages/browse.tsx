@@ -223,13 +223,13 @@ const Browse: NextPage = () => {
 	const Api = useContext(ApiContext);
 
 	useEffect(() => {
-		Api.getState(setChannels, '/api/get-channels');
+		Api.getState(setChannels, 'http://localhost:3001/api/get-channels');
 	}, []);
 
 	return (
 		<main>
 			<Head>
-				<title>bhop archive - browse</title>
+				<title>bhop archive | browse</title>
 			</Head>
 
 			<h1 style={{ marginBottom: '0.5rem' }}>browse</h1>

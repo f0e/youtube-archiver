@@ -1,7 +1,7 @@
 :root {
 }
 
-:root[data-theme='theme-light'] {
+:root[data-theme='light'] {
 	--background-colour: #fff;
 	--text-colour: #000;
 
@@ -9,9 +9,12 @@
 	--card-border: rgb(214, 214, 214);
 	--card-highlight: rgb(136, 136, 136);
 	--card-highlight-text-colour: #fff;
+
+	--navbar-highlight-rgb: 0, 0, 0;
+	--navbar-highlight-opacity: 0.1;
 }
 
-:root[data-theme='theme-dark'] {
+:root[data-theme='dark'] {
 	--background-colour: #000;
 	--text-colour: #fff;
 
@@ -19,4 +22,7 @@
 	--card-border: rgb(54, 54, 54);
 	--card-highlight: rgb(77, 77, 77);
 	--card-highlight-text-colour: #fff;
+
+	--navbar-highlight-rgb: 255, 255, 255;
+	--navbar-highlight-opacity: 0.25;
 }

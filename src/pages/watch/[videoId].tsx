@@ -25,6 +25,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime);
 
 import styles from './watch.module.scss';
+import Head from 'next/head';
 
 interface CommentProps {
 	comment: any;
@@ -121,9 +122,13 @@ const VideoComments = ({ comments }: VideoCommentsProps): ReactElement => {
 	useEffect(() => {
 		if (comments.length == 0) return;
 
-		Api.getState(setParsedCommenters, '/api/check-channels-parsed', {
-			channelIds: comments.map((comment) => comment.author_id),
-		});
+		Api.getState(
+			setParsedCommenters,
+			'http://localhost:3001/api/check-channels-parsed',
+			{
+				channelIds: comments.map((comment) => comment.author_id),
+			}
+		);
 	}, [comments]);
 
 	const fixComments = (comments: any) => {
@@ -343,11 +348,20 @@ const Watch = ({
 					<Button onClick={() => router.back()}>back</Button>
 				</>
 			) : (
-				<VideoPlayer
-					video={videoInfo.video}
-					channel={videoInfo.channel}
-					basicVideo={videoInfo.basicVideo}
-				/>
+				<>
+					<Head>
+						<title>
+							bhop archive | {videoInfo.channel.data.author} -{' '}
+							{videoInfo.video.data.title}
+						</title>
+					</Head>
+
+					<VideoPlayer
+						video={videoInfo.video}
+						channel={videoInfo.channel}
+						basicVideo={videoInfo.basicVideo}
+					/>
+				</>
 			)}
 		</main>
 	);
@@ -397,14 +411,27 @@ export const getStaticProps: GetStaticProps = async (context) => {
 		'comments',
 	];
 
+	const requiredBasicVideoFields = ['viewCountText'];
+
+	delete res.data.channel._id;
 	delete res.data.channel.videos;
+	delete res.data.channel.relations;
 
 	for (const key in res.data.channel.data)
 		if (!requiredChannelDataFields.includes(key))
 			delete res.data.channel.data[key];
 
+	delete res.data.video._id;
+
 	for (const key in res.data.video.data)
 		if (!requiredVideoDataFields.includes(key)) delete res.data.video.data[key];
+
+	for (const key in res.data.basicVideo)
+		if (!requiredBasicVideoFields.includes(key))
+			delete res.data.basicVideo[key];
+
+	if (!res.data.channel || !res.data.video || !res.data.basicVideo)
+		throw 'melvin';
 
 	return {
 		props: { videoInfo: res.data },

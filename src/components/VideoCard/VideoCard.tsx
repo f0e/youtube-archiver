@@ -22,9 +22,12 @@ const VideoCardDate = ({ basicVideo }: VideoCardDateProps) => {
 	const Api = useContext(ApiContext);
 
 	const loadDate = async () => {
-		const newDate = await Api.get('/api/get-video-upload-date', {
-			videoId: basicVideo.videoId,
-		});
+		const newDate = await Api.get(
+			'http://localhost:3001/api/get-video-upload-date',
+			{
+				videoId: basicVideo.videoId,
+			}
+		);
 
 		setDate(newDate);
 	};
@@ -81,7 +84,6 @@ export const VideoCard = ({
 									: basicVideo.videoThumbnails.at(-1).url
 							}
 							alt={`thumbnail for video '${basicVideo.title}' by ${basicVideo.author}`}
-							unoptimized
 						/>
 
 						<div className={styles.videoDuration}>

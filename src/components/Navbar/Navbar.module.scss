@@ -1,5 +1,7 @@
 .navbar {
 	display: flex;
+	align-items: center;
+	gap: 1rem;
 
 	padding: 1rem;
 
@@ -11,6 +13,52 @@
 
 		&:hover {
 			opacity: 0.92;
+		}
+	}
+
+	.links {
+		position: relative;
+
+		display: flex;
+		gap: 0.4rem;
+
+		.link {
+			opacity: 0.5;
+
+			padding: 0 0.3rem;
+
+			transition: opacity 0.025s, transform 0.1s;
+
+			&:hover {
+				opacity: 0.75;
+				transform: translateY(-1px);
+			}
+		}
+
+		.linkBackground {
+			position: absolute;
+			top: 0;
+			left: 0;
+
+			opacity: 0;
+
+			border-width: 0;
+			border-bottom-width: 1px;
+			border-style: solid;
+			border-image: linear-gradient(
+					to right,
+					rgba(var(--navbar-highlight-rgb), 0) 0%,
+					rgba(var(--navbar-highlight-rgb), 1) 35%,
+					rgba(var(--navbar-highlight-rgb), 1) 65%,
+					rgba(var(--navbar-highlight-rgb), 0) 100%
+				)
+				100% 1;
+
+			transition: opacity 0.15s;
+
+			&.linkBackgroundHovered {
+				opacity: var(--navbar-highlight-opacity);
+			}
 		}
 	}
 }
