@@ -1,0 +1,8 @@
+.loadingImage {
+	opacity: 0;
+	transition: opacity 0.1s;
+
+	&.imageLoaded {
+		opacity: 1;
+	}
+}

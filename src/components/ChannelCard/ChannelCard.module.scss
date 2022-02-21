@@ -1,0 +1,113 @@
+.channelCard {
+	grid-column: 1 / -1;
+
+	border: 1px solid var(--card-border);
+	border-radius: 0.5rem;
+
+	background-color: var(--card-background);
+
+	.channelHeader {
+		display: flex;
+		gap: 1rem;
+
+		margin-bottom: 0.75rem;
+
+		.channelAvatar {
+			position: relative;
+
+			width: 8rem;
+			height: 8rem;
+
+			img {
+				border-radius: 0.25rem;
+			}
+		}
+
+		.channelInfo {
+			flex-grow: 1;
+
+			display: flex;
+			justify-content: space-between;
+			min-width: 0; // dumb fix to make overflow-wrap work in flex
+
+			.channelNameAndSubs {
+				min-width: 0; // LOVE CSS
+			}
+
+			.channelTools {
+				display: flex;
+				flex-direction: column;
+				align-items: flex-end;
+				gap: 0.75rem;
+
+				margin-bottom: 1rem;
+			}
+
+			.channelName {
+				flex-shrink: 0;
+				font-weight: bold;
+				font-size: 2em;
+				margin-bottom: 0.3rem;
+
+				overflow-wrap: break-word;
+			}
+
+			.channelSubscriptions {
+				opacity: 0.75;
+				font-size: 0.9em;
+				margin-bottom: 0.5rem;
+			}
+		}
+	}
+
+	.channelDescription {
+		padding: 0.75rem;
+
+		margin-bottom: 0.75rem;
+
+		border: 1px solid var(--card-border);
+		border-radius: 0.5rem;
+
+		background-color: var(--card-background);
+	}
+
+	.channelTags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.2rem;
+
+		margin-bottom: 0.75rem;
+
+		.channelTag {
+			display: inline;
+
+			padding: 0.3rem 0.5rem;
+			font-size: 0.8em;
+
+			border: 1px solid var(--card-border);
+			border-radius: 0.5rem;
+
+			background-color: var(--card-background);
+
+			cursor: pointer;
+
+			transition: background-color 0.1s;
+
+			&:hover {
+				background-color: rgba(255, 255, 255, 0.1);
+			}
+		}
+	}
+
+	.noVideos {
+		text-align: center;
+
+		opacity: 0.75;
+	}
+
+	.channelVideos {
+		display: grid;
+		gap: 0.7rem;
+		grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+	}
+}

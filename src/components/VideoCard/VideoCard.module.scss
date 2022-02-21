@@ -1,0 +1,52 @@
+.outdatedDate {
+	opacity: 0.5;
+}
+
+.videoCard {
+	border: 1px solid var(--card-border);
+	border-radius: 0.25rem;
+	background-color: var(--card-background);
+
+	.videoThumbnail {
+		position: relative;
+		width: 100%;
+		aspect-ratio: 16 / 9;
+
+		.videoDuration {
+			position: absolute;
+
+			bottom: 0.5rem;
+			right: 0.5rem;
+
+			font-size: 0.8em;
+
+			background-color: rgba(0, 0, 0, 0.95);
+			padding: 0.1rem 0.2rem;
+
+			border-radius: 0.2em;
+
+			user-select: none;
+		}
+	}
+
+	.videoDetails {
+		padding: 1rem;
+
+		.videoTitle {
+			overflow-wrap: break-word;
+		}
+
+		.videoAuthor {
+			margin-top: 0.1rem;
+			margin-bottom: 0.35rem;
+
+			opacity: 0.5;
+		}
+
+		.viewsAndDate {
+			margin-top: 0.1rem;
+			font-size: 0.9em;
+			opacity: 0.75;
+		}
+	}
+}

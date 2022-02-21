@@ -1,0 +1,16 @@
+.navbar {
+	display: flex;
+
+	padding: 1rem;
+
+	.navbarTitle {
+		font-weight: bold;
+		font-size: 1.3em;
+
+		transition: opacity 0.1s;
+
+		&:hover {
+			opacity: 0.92;
+		}
+	}
+}
