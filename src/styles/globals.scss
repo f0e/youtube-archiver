@@ -43,6 +43,20 @@ main {
 	}
 }
 
+.link {
+	text-decoration: underline;
+}
+
+.unparsed {
+	opacity: 0.25;
+	filter: saturate(0.5);
+}
+
+// mantine cards
+.mantine-Card-root {
+	color: inherit; // don't use dim text colour
+}
+
 // override default styles
 h1,
 h2,
@@ -58,18 +72,27 @@ a {
 	text-decoration: none;
 }
 
-.link {
-	text-decoration: underline;
+::-webkit-scrollbar {
+	width: 5px;
+	height: 5px;
 }
 
-// mantine cards
-.mantine-Card-root {
-	color: inherit; // don't use dim text colour
+::-webkit-scrollbar-track {
+	background: transparent;
 }
 
-.unparsed {
-	opacity: 0.25;
-	filter: saturate(0.5);
+::-webkit-scrollbar-thumb {
+	background: rgba(255, 255, 255, 0.3);
+	border-radius: 0.1rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: rgba(255, 255, 255, 0.4);
+}
+
+* {
+	scrollbar-width: thin;
+	scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
 }
 
 // mobile

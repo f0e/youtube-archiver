@@ -114,8 +114,8 @@ const Navbar = (): ReactElement => {
 
 	return (
 		<div className={styles.navbar}>
-			<ConditionalLink href="/">
-				<a className={styles.navbarTitle}>bhop archive</a>
+			<ConditionalLink href="/" className={styles.navbarTitle}>
+				bhop archive
 			</ConditionalLink>
 
 			<div

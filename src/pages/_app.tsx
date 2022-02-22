@@ -55,7 +55,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
 							<LazyMotion features={domAnimation}>
 								<AnimatePresence
 									// exitBeforeEnter
-									// initial={false}
+									initial={false}
 									onExitComplete={() => window && window.scrollTo({ top: 0 })}>
 									<motion.div
 										key={router.asPath}

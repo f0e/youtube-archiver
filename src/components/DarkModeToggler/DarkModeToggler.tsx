@@ -8,15 +8,13 @@ const DarkModeToggler = (): ReactElement => {
 	const { darkTheme, toggleDarkTheme } = useContext(ThemeContext);
 
 	return (
-		<div>
-			<ActionIcon
-				variant={darkTheme ? 'filled' : 'outline'}
-				color="indigo"
-				onClick={toggleDarkTheme}
-				aria-label="toggle dark mode">
-				<MoonIcon />
-			</ActionIcon>
-		</div>
+		<ActionIcon
+			variant={darkTheme ? 'filled' : 'outline'}
+			color="indigo"
+			onClick={toggleDarkTheme}
+			aria-label="toggle dark mode">
+			<MoonIcon />
+		</ActionIcon>
 	);
 };
 

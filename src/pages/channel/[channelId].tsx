@@ -51,10 +51,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
 		},
 	});
 
-	if (!res.data) {
-		console.log('failed to load data for channel id', channelId);
-	}
-
 	// remove unnecessary data to lower total data size
 	const requiredChannelDataFields = [
 		'authorThumbnails',
