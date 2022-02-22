@@ -24,7 +24,7 @@ export const ChannelCard = ({
 }: ChannelCardProps): ReactElement => {
 	const channelLink = (children: any) =>
 		parsed ? (
-			<ConditionalLink to={`/channel/${channel.id}`} condition={parsed}>
+			<ConditionalLink href={`/channel/${channel.id}`} condition={parsed}>
 				{children}
 			</ConditionalLink>
 		) : (
@@ -34,16 +34,16 @@ export const ChannelCard = ({
 	return (
 		<Card className={styles.channelCard}>
 			<div className={styles.channelHeader}>
-				<div className={styles.channelAvatar}>
-					{channelLink(
-						<LoadingImage
-							src={channel.data.authorThumbnails.at(-1).url}
-							alt={`${channel.data.author}'s avatar`}
-						/>
-					)}
-				</div>
+				<div className={styles.channelAvatarAndName}>
+					<div className={styles.channelAvatar}>
+						{channelLink(
+							<LoadingImage
+								src={channel.data.authorThumbnails.at(-1).url}
+								alt={`${channel.data.author}'s avatar`}
+							/>
+						)}
+					</div>
 
-				<div className={styles.channelInfo}>
 					<div className={styles.channelNameAndSubs}>
 						{channelLink(
 							<div className={styles.channelName}>{channel.data.author}</div>
@@ -55,9 +55,9 @@ export const ChannelCard = ({
 								: channel.data.subscriberText}
 						</div>
 					</div>
-
-					<div className={styles.channelTools}>{channelTools}</div>
 				</div>
+
+				<div className={styles.channelTools}>{channelTools}</div>
 			</div>
 
 			{channel.data.description && (

@@ -1,7 +1,7 @@
 import React, { ReactElement, useContext, useEffect, useState } from 'react';
 import Image from 'next/image';
 
-import ApiContext, { ApiState } from '../../context/ApiContext';
+import ApiContext from '../../context/ApiContext';
 import ConditionalLink from '../ConditionalLink/ConditionalLink';
 import Loader from '../Loader/Loader';
 

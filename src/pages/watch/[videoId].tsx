@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useRef } from 'react';
+import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import {
 	GetStaticPaths,
@@ -21,7 +21,7 @@ dayjs.extend(relativeTime);
 
 import styles from './watch.module.scss';
 import Head from 'next/head';
-import useApi from 'hooks/useApi';
+import useApi from '@hooks/useApi';
 
 interface CommentProps {
 	comment: any;
@@ -167,17 +167,13 @@ const VideoComments = ({ comments }: VideoCommentsProps): ReactElement => {
 	);
 };
 
-interface VideoPlayerProps {
+interface VideoStreamProps {
 	video: Video;
-	channel: Channel;
-	basicVideo: any;
 }
 
-const VideoPlayer = ({
-	video,
-	channel,
-	basicVideo,
-}: VideoPlayerProps): ReactElement => {
+const VideoStream = ({ video }: VideoStreamProps): ReactElement => {
+	const [loadingVideo, setLoadingVideo] = useState(true);
+
 	const videoRef = useRef<HTMLVideoElement>(null);
 
 	useEffect(() => {
@@ -200,9 +196,40 @@ const VideoPlayer = ({
 
 	const showVideo = () => {
 		if (!videoRef.current) return;
-		videoRef.current.classList.remove('loading-video');
+		setLoadingVideo(false);
 	};
 
+	return (
+		<video
+			className={`${styles.videoPlayer} ${loadingVideo && styles.loadingVideo}`}
+			style={{
+				aspectRatio: `${video.data.width} / ${video.data.height}`,
+			}}
+			controls
+			onLoadedData={showVideo}
+			ref={videoRef}
+			onVolumeChange={storeVolume}
+			// autoPlay
+		>
+			<source
+				src={`/api/get-video-stream?videoId=${video.id}`}
+				type="video/mp4"
+			/>
+		</video>
+	);
+};
+
+interface VideoPlayerProps {
+	video: Video;
+	channel: Channel;
+	basicVideo: any;
+}
+
+const VideoPlayer = ({
+	video,
+	channel,
+	basicVideo,
+}: VideoPlayerProps): ReactElement => {
 	const uploadDate = dayjs(video.data.upload_date, 'YYYY-MM-DD')
 		.toDate()
 		.toLocaleDateString('en-US', {
@@ -212,21 +239,11 @@ const VideoPlayer = ({
 		});
 
 	return (
-		<div className={styles.video}>
-			<video
-				className={`${styles.videoPlayer} loadingVideo`}
-				style={{ aspectRatio: `${video.data.width} / ${video.data.height}` }}
-				controls
-				onLoadedData={showVideo}
-				ref={videoRef}
-				onVolumeChange={storeVolume}
-				// autoPlay
-			>
-				<source
-					src={`/api/get-video-stream?videoId=${video.id}`}
-					type="video/mp4"
-				/>
-			</video>
+		<div
+			className={`${styles.video} ${
+				video.id == 'KVbqySecMjk' && styles.steev2
+			}`}>
+			<VideoStream video={video} />
 
 			<div className={styles.videoInfo}>
 				<div>
@@ -356,7 +373,7 @@ const Watch: NextPage = ({
 	videoInfo,
 }: InferGetStaticPropsType<typeof getStaticProps>): ReactElement => {
 	return (
-		<main style={{ maxWidth: '80rem' }}>
+		<main style={{ width: '80rem' }}>
 			<MainContent videoInfo={videoInfo} />
 		</main>
 	);
@@ -367,67 +384,74 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 	return {
 		paths: res.data.map((id: string) => ({ params: { videoId: id } })),
-		fallback: true, // false or 'blocking'
+		fallback: true,
 	};
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
 	const { videoId } = context.params as any;
 
-	const res = await axios.get('http://localhost:3001/api/get-video-info', {
-		params: {
-			videoId,
-		},
-	});
+	try {
+		const res = await axios.get('http://localhost:3001/api/get-video-info', {
+			params: {
+				videoId,
+			},
+		});
 
-	// remove unnecessary data to lower total data size
-	const requiredChannelDataFields = [
-		'authorThumbnails',
-		'author',
-		'subscriberCount',
-		'subscriberText',
-	];
+		// remove unnecessary data to lower total data size
+		const requiredChannelDataFields = [
+			'authorThumbnails',
+			'author',
+			'subscriberCount',
+			'subscriberText',
+		];
 
-	const requiredVideoDataFields = [
-		'upload_date',
-		'width',
-		'height',
-		'title',
-		'like_count',
-		'channel_id',
-		'channel',
-		'description',
-		'categories',
-		'track',
-		'artist',
-		'song',
-		'artist',
-		'track',
-		'comments',
-	];
+		const requiredVideoDataFields = [
+			'upload_date',
+			'width',
+			'height',
+			'title',
+			'like_count',
+			'channel_id',
+			'channel',
+			'description',
+			'categories',
+			'track',
+			'artist',
+			'song',
+			'artist',
+			'track',
+			'comments',
+		];
 
-	const requiredBasicVideoFields = ['viewCountText'];
+		const requiredBasicVideoFields = ['viewCountText'];
 
-	delete res.data.channel._id;
-	delete res.data.channel.videos;
-	delete res.data.channel.relations;
+		delete res.data.channel._id;
+		delete res.data.channel.videos;
+		delete res.data.channel.relations;
 
-	for (const key in res.data.channel.data)
-		if (!requiredChannelDataFields.includes(key))
-			delete res.data.channel.data[key];
+		for (const key in res.data.channel.data)
+			if (!requiredChannelDataFields.includes(key))
+				delete res.data.channel.data[key];
 
-	delete res.data.video._id;
+		delete res.data.video._id;
 
-	for (const key in res.data.video.data)
-		if (!requiredVideoDataFields.includes(key)) delete res.data.video.data[key];
+		for (const key in res.data.video.data)
+			if (!requiredVideoDataFields.includes(key))
+				delete res.data.video.data[key];
 
-	for (const key in res.data.basicVideo)
-		if (!requiredBasicVideoFields.includes(key))
-			delete res.data.basicVideo[key];
+		for (const key in res.data.basicVideo)
+			if (!requiredBasicVideoFields.includes(key))
+				delete res.data.basicVideo[key];
 
-	return {
-		props: { videoInfo: res.data },
-	};
+		return {
+			props: { videoInfo: res.data },
+		};
+	} catch (e) {
+		return {
+			props: { videoInfo: null },
+		};
+	}
 };
 
 export default Watch;

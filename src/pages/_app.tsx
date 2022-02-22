@@ -50,6 +50,14 @@ const App = ({ Component, pageProps, router }: AppProps) => {
 		document.documentElement.dataset.theme = colorScheme;
 	}, [colorScheme]);
 
+	// disable inbuilt scrolling to top on page change
+	useEffect(() => {
+		router.beforePopState((state) => {
+			state.options.scroll = false;
+			return true;
+		});
+	}, [router]);
+
 	return (
 		<>
 			<Head>
@@ -76,8 +84,9 @@ const App = ({ Component, pageProps, router }: AppProps) => {
 								<LazyMotion features={domAnimation}>
 									<AnimatePresence
 										// exitBeforeEnter
-										initial={false}
+										// initial={false}
 										onExitComplete={() =>
+											// scroll to top when the page actually has exited
 											window && window.scrollTo({ top: 0 })
 										}>
 										<motion.div

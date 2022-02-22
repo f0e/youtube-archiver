@@ -2,8 +2,8 @@
 }
 
 :root[data-theme='light'] {
-	--background-colour: #fff;
-	--text-colour: #000;
+	--background-colour: rgb(255, 255, 255);
+	--text-colour: rgb(0, 0, 0);
 
 	--card-background: rgb(252, 252, 252);
 	--card-border: rgb(214, 214, 214);
@@ -16,8 +16,8 @@
 }
 
 :root[data-theme='dark'] {
-	--background-colour: #000;
-	--text-colour: #fff;
+	--background-colour: rgb(0, 0, 0);
+	--text-colour: rgb(255, 255, 255);
 
 	--card-background: rgb(32, 32, 32);
 	--card-border: rgb(54, 54, 54);

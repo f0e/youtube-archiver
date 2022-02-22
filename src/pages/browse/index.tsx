@@ -15,7 +15,7 @@ import CountUp from 'react-countup';
 import { ChannelCard } from '@components/ChannelCard/ChannelCard';
 import Loader from '@components/Loader/Loader';
 import { VideoCard } from '@components/VideoCard/VideoCard';
-import useApi from 'hooks/useApi';
+import useApi from '@hooks/useApi';
 
 import Channel from '@customTypes/channel';
 import Video from '@customTypes/video';

@@ -120,7 +120,7 @@ const Navbar = (): ReactElement => {
 
 			<div
 				ref={linksRef}
-				className={styles.links}
+				className={`navbar-links ${styles.links}`}
 				onMouseLeave={(e) => onExit()}>
 				{getMotionDiv()}
 

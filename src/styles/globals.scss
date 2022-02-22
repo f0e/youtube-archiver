@@ -4,6 +4,10 @@
 	box-sizing: border-box;
 }
 
+* {
+	transition: color 0.1s, background-color 0.2s;
+}
+
 body {
 	margin: 0;
 	padding: 0;
@@ -18,14 +22,14 @@ body {
 	text-align: left;
 
 	overflow-x: hidden;
-
-	transition: color 0.1s, background-color 0.2s;
 }
 
 main {
 	padding: 3rem 5rem;
 
-	max-width: 60rem;
+	width: 60rem;
+	max-width: 100%;
+
 	margin: 0 auto;
 }
 
@@ -99,5 +103,9 @@ a {
 @media only screen and (max-width: 600px) {
 	main {
 		padding: 3rem 1rem;
+	}
+
+	.navbar-links {
+		display: none !important;
 	}
 }

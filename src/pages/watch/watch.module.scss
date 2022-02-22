@@ -5,6 +5,16 @@
 	margin-bottom: 1rem;
 }
 
+.page {
+	width: 80rem;
+	display: flex;
+	justify-content: center;
+
+	&.steev {
+		background-color: #961111;
+	}
+}
+
 .channelAvatar {
 	position: relative;
 	flex-shrink: 0;
@@ -17,12 +27,31 @@
 }
 
 .video {
+	position: relative;
+
+	&.steev2::after {
+		content: '47';
+
+		position: absolute;
+
+		right: -5rem;
+		top: 50vh;
+
+		color: #000;
+
+		font-size: 5rem;
+		font-family: 'Georgia';
+	}
+
 	.videoPlayer {
+		position: relative;
 		width: 100%;
 		max-height: 80vh;
 		outline: none;
 
 		transition: opacity 0.15s;
+
+		z-index: 2;
 
 		&.loadingVideo {
 			opacity: 0;
@@ -42,6 +71,8 @@
 		}
 
 		.likes {
+			flex-shrink: 0;
+
 			.likeNumber {
 				font-weight: bold;
 			}
