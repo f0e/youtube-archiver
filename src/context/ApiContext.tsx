@@ -24,14 +24,6 @@ export interface ApiContextInterface {
 		dontNotifyErrors?: boolean
 	) => Promise<any>;
 
-	getState: (
-		set: React.Dispatch<React.SetStateAction<any>>,
-		url: string,
-		parameters?: ApiCallParameters,
-		options?: AxiosRequestConfig<any>,
-		dontNotifyErrors?: boolean
-	) => Promise<any>;
-
 	post: (
 		url: string,
 		body?: ApiCallParameters,
@@ -77,43 +69,6 @@ export const ApiStore: FunctionComponent = ({ children }) => {
 		}
 	};
 
-	const getState = async (
-		set: React.Dispatch<React.SetStateAction<any>>,
-		url: string,
-		parameters?: ApiCallParameters,
-		options?: AxiosRequestConfig<any>,
-		dontNotifyErrors?: boolean
-	): Promise<any> => {
-		try {
-			set({
-				data: null,
-				loading: true,
-				error: null,
-			});
-
-			const res = await axios.get(url, {
-				params: parameters,
-				...options,
-			});
-
-			set({
-				data: res.data,
-				loading: false,
-				error: null,
-			});
-		} catch (e: any) {
-			const errorMessage = e.response?.data?.message;
-
-			if (!dontNotifyErrors) onError(errorMessage);
-
-			set({
-				data: null,
-				loading: false,
-				error: e,
-			});
-		}
-	};
-
 	const post = async (
 		url: string,
 		parameters?: ApiCallParameters,
@@ -134,9 +89,7 @@ export const ApiStore: FunctionComponent = ({ children }) => {
 	};
 
 	return (
-		<ApiContext.Provider value={{ get, getState, post }}>
-			{children}
-		</ApiContext.Provider>
+		<ApiContext.Provider value={{ get, post }}>{children}</ApiContext.Provider>
 	);
 };
 

@@ -3,6 +3,8 @@ import { NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 
+import ConditionalLink from '@components/ConditionalLink/ConditionalLink';
+
 const Custom404: NextPage = () => {
 	return (
 		<main>
@@ -15,9 +17,9 @@ const Custom404: NextPage = () => {
 
 			<br />
 
-			<Link href="/" passHref>
+			<ConditionalLink href="/">
 				<Button>home</Button>
-			</Link>
+			</ConditionalLink>
 		</main>
 	);
 };

@@ -1,11 +1,23 @@
 import Link from 'next/link';
+import { AnchorHTMLAttributes, forwardRef } from 'react';
 
-export default function ConditionalLink({ children, to, condition }: any) {
-	return !!condition && to ? (
-		<Link href={to}>
-			<a>{children}</a>
+interface ConditionalLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
+	children: any;
+	condition?: boolean;
+}
+
+export const ConditionalLink = ({
+	children,
+	condition,
+	...props
+}: ConditionalLinkProps) => {
+	return (condition == undefined || condition) && props.href ? (
+		<Link href={props.href} scroll={false}>
+			<a {...props}>{children}</a>
 		</Link>
 	) : (
 		<>{children}</>
 	);
-}
+};
+
+export default ConditionalLink;

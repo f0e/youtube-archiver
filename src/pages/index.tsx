@@ -5,6 +5,8 @@ import { NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 
+import ConditionalLink from '@components/ConditionalLink/ConditionalLink';
+
 import styles from './index.module.scss';
 
 const Home: NextPage = () => {
@@ -17,23 +19,23 @@ const Home: NextPage = () => {
 			<h1>bhop archive</h1>
 
 			<div className={styles.links}>
-				<Link href="/browse" passHref>
+				<ConditionalLink href="/browse">
 					<Button>browse</Button>
-				</Link>
+				</ConditionalLink>
 
-				<Link href="/add" passHref>
+				<ConditionalLink href="/add">
 					<Button>add</Button>
-				</Link>
+				</ConditionalLink>
 
-				<Link href="/filter" passHref>
+				<ConditionalLink href="/filter">
 					<Button>filter</Button>
-				</Link>
+				</ConditionalLink>
 
-				<Link href="/connections" passHref>
+				<ConditionalLink href="/connections">
 					<Button variant="outline" color="dark">
 						connections
 					</Button>
-				</Link>
+				</ConditionalLink>
 			</div>
 		</main>
 	);

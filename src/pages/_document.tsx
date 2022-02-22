@@ -14,6 +14,8 @@ export default class _Document extends Document {
 						href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=optional"
 						rel="stylesheet"
 					/>
+
+					{/* load theme before document loads to avoid flickering */}
 					<script
 						type="text/javascript"
 						dangerouslySetInnerHTML={{

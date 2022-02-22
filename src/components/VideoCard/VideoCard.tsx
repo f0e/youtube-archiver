@@ -22,12 +22,9 @@ const VideoCardDate = ({ basicVideo }: VideoCardDateProps) => {
 	const Api = useContext(ApiContext);
 
 	const loadDate = async () => {
-		const newDate = await Api.get(
-			'http://localhost:3001/api/get-video-upload-date',
-			{
-				videoId: basicVideo.videoId,
-			}
-		);
+		const newDate = await Api.get('/api/get-video-upload-date', {
+			videoId: basicVideo.videoId,
+		});
 
 		setDate(newDate);
 	};
@@ -60,9 +57,7 @@ export const VideoCard = ({
 }: VideoCardProps): ReactElement => {
 	const videoLink = (children: any) =>
 		basicVideo.downloaded ? (
-			<ConditionalLink
-				to={`/watch/${basicVideo.videoId}`}
-				condition={basicVideo.downloaded}>
+			<ConditionalLink href={`/watch/${basicVideo.videoId}`}>
 				{children}
 			</ConditionalLink>
 		) : (

@@ -26,6 +26,7 @@ dayjs.extend(relativeTime);
 
 import styles from './watch.module.scss';
 import Head from 'next/head';
+import useApi from 'hooks/useApi';
 
 interface CommentProps {
 	comment: any;
@@ -35,7 +36,7 @@ interface CommentProps {
 const Comment = ({ comment, replies }: CommentProps): ReactElement => {
 	const channelLink = (children: any) => (
 		<ConditionalLink
-			to={`/channel/${comment.data.author_id}`}
+			href={`/channel/${comment.data.author_id}`}
 			condition={comment.parsed}>
 			{children}
 		</ConditionalLink>
@@ -113,29 +114,19 @@ interface VideoCommentsProps {
 }
 
 const VideoComments = ({ comments }: VideoCommentsProps): ReactElement => {
-	const [parsedCommenters, setParsedCommenters] = useState(
-		new ApiState(comments.length != 0)
-	);
-
-	const Api = useContext(ApiContext);
-
-	useEffect(() => {
-		if (comments.length == 0) return;
-
-		Api.getState(
-			setParsedCommenters,
-			'http://localhost:3001/api/check-channels-parsed',
-			{
-				channelIds: comments.map((comment) => comment.author_id),
-			}
-		);
-	}, [comments]);
+	const {
+		data: parsedCommenters,
+		loading,
+		error,
+	} = useApi('/api/check-channels-parsed', {
+		channelIds: comments.map((comment) => comment.author_id),
+	});
 
 	const fixComments = (comments: any) => {
 		// store which channels are parsed
 		comments = comments.map((comment: any) => ({
 			data: comment,
-			parsed: parsedCommenters.data && parsedCommenters.data[comment.author_id],
+			parsed: parsedCommenters && parsedCommenters[comment.author_id],
 		}));
 
 		// fix replies
@@ -170,19 +161,13 @@ const VideoComments = ({ comments }: VideoCommentsProps): ReactElement => {
 
 	return (
 		<div className={styles.comments}>
-			{parsedCommenters.loading ? (
-				<Loader message="loading comments" />
-			) : parsedCommenters.error ? (
-				<h2>failed to load comments</h2>
-			) : (
-				fixComments(comments).map((comment: any) => (
-					<Comment
-						key={comment.comment.data.id}
-						comment={comment.comment}
-						replies={comment.replies}
-					/>
-				))
-			)}
+			{fixComments(comments).map((comment: any) => (
+				<Comment
+					key={comment.comment.data.id}
+					comment={comment.comment}
+					replies={comment.replies}
+				/>
+			))}
 		</div>
 	);
 };
@@ -271,7 +256,7 @@ const VideoPlayer = ({
 
 			<div className={styles.spacer} />
 
-			<Link href={`/channel/${video.data.channel_id}`}>
+			<ConditionalLink href={`/channel/${video.data.channel_id}`}>
 				<a className={styles.videoChannel}>
 					<div className={styles.channelAvatar}>
 						<LoadingImage
@@ -290,7 +275,7 @@ const VideoPlayer = ({
 						</div>
 					</div>
 				</a>
-			</Link>
+			</ConditionalLink>
 
 			{video.data.description && (
 				<div className={styles.videoDescription}>{video.data.description}</div>
@@ -429,9 +414,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
 	for (const key in res.data.basicVideo)
 		if (!requiredBasicVideoFields.includes(key))
 			delete res.data.basicVideo[key];
-
-	if (!res.data.channel || !res.data.video || !res.data.basicVideo)
-		throw 'melvin';
 
 	return {
 		props: { videoInfo: res.data },

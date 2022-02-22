@@ -15,7 +15,7 @@ import CountUp from 'react-countup';
 import { ChannelCard } from '@components/ChannelCard/ChannelCard';
 import Loader from '@components/Loader/Loader';
 import { VideoCard } from '@components/VideoCard/VideoCard';
-import ApiContext, { ApiState } from '@context/ApiContext';
+import useApi from 'hooks/useApi';
 
 import Channel from '@customTypes/channel';
 import Video from '@customTypes/video';
@@ -23,6 +23,8 @@ import Video from '@customTypes/video';
 import Fuse from 'fuse.js';
 
 import styles from './browse.module.scss';
+import useSWR from 'swr';
+import axios from 'axios';
 
 interface SearchItem {
 	name: string;
@@ -215,17 +217,33 @@ const DownloadedCount = (): ReactElement => {
 	);
 };
 
-const Browse: NextPage = () => {
-	const [channels, setChannels] = useState(new ApiState());
+const MainContent = (): ReactElement => {
+	const { data: channels, loading, error } = useApi('/api/get-channels');
 
 	const router = useRouter();
 
-	const Api = useContext(ApiContext);
+	if (loading) return <Loader message="loading channels" />;
 
-	useEffect(() => {
-		Api.getState(setChannels, 'http://localhost:3001/api/get-channels');
-	}, []);
+	if (error)
+		return (
+			<>
+				<h2>failed to load channels</h2>
+				<Button onClick={() => router.back()}>back</Button>
+			</>
+		);
 
+	if (channels.length == 0)
+		return (
+			<>
+				<h2>no channels found</h2>
+				<Button onClick={() => router.back()}>back</Button>
+			</>
+		);
+
+	return <Search channels={channels} />;
+};
+
+const Browse: NextPage = () => {
 	return (
 		<main>
 			<Head>
@@ -236,21 +254,7 @@ const Browse: NextPage = () => {
 			<DownloadedCount />
 			<br />
 
-			{channels.loading ? (
-				<Loader message="loading channels" />
-			) : channels.error ? (
-				<>
-					<h2>failed to load channels</h2>
-					<Button onClick={() => router.back()}>back</Button>
-				</>
-			) : channels.data.length == 0 ? (
-				<>
-					<h2>no channels found</h2>
-					<Button onClick={() => router.back()}>back</Button>
-				</>
-			) : (
-				<Search channels={channels.data} />
-			)}
+			<MainContent />
 		</main>
 	);
 };

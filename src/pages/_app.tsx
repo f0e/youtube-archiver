@@ -53,7 +53,10 @@ function MyApp({ Component, pageProps, router }: AppProps) {
 							<Navbar />
 
 							<LazyMotion features={domAnimation}>
-								<AnimatePresence>
+								<AnimatePresence
+									// exitBeforeEnter
+									// initial={false}
+									onExitComplete={() => window && window.scrollTo({ top: 0 })}>
 									<motion.div
 										key={router.asPath}
 										initial={{ opacity: 0, x: -5 }}

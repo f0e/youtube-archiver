@@ -6,6 +6,7 @@ import DarkModeToggler from '../DarkModeToggler/DarkModeToggler';
 
 import styles from './Navbar.module.scss';
 import { motion } from 'framer-motion';
+import ConditionalLink from '@components/ConditionalLink/ConditionalLink';
 
 class Hover {
 	elem = null;
@@ -113,9 +114,9 @@ const Navbar = (): ReactElement => {
 
 	return (
 		<div className={styles.navbar}>
-			<Link href="/">
+			<ConditionalLink href="/">
 				<a className={styles.navbarTitle}>bhop archive</a>
-			</Link>
+			</ConditionalLink>
 
 			<div
 				ref={linksRef}
@@ -124,13 +125,13 @@ const Navbar = (): ReactElement => {
 				{getMotionDiv()}
 
 				{links.map((link) => (
-					<Link key={link.link} href={link.link}>
-						<a
-							className={styles.link}
-							onMouseOver={(e) => onHover(e.currentTarget)}>
-							{link.label}
-						</a>
-					</Link>
+					<ConditionalLink
+						key={link.link}
+						href={link.link}
+						className={styles.link}
+						onMouseOver={(e: any) => onHover(e.currentTarget)}>
+						{link.label}
+					</ConditionalLink>
 				))}
 			</div>
 
