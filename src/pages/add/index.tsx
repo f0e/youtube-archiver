@@ -1,7 +1,8 @@
 import React, { ReactElement, useContext, useEffect, useState } from 'react';
+import Head from 'next/head';
 import { Button, Switch, Textarea, TextInput } from '@mantine/core';
-import { useDocumentTitle, useForm } from '@mantine/hooks';
-import ApiContext, { ApiState } from '../../context/ApiContext';
+import { useForm } from '@mantine/hooks';
+import ApiContext from '../../context/ApiContext';
 import Loader from '../../components/Loader/Loader';
 import { ChannelCard } from '../../components/ChannelCard/ChannelCard';
 import LoadingButton from '../../components/LoadingButton/LoadingButton';
@@ -295,10 +296,12 @@ const AddChannelForm = (): ReactElement => {
 };
 
 const AddChannel: NextPage = () => {
-	useDocumentTitle('bhop archive | add');
-
 	return (
-		<main className={styles.addChannelPage}>
+		<main>
+			<Head>
+				<title>bhop archive | add</title>
+			</Head>
+
 			<h1 style={{ marginBottom: '0.5rem' }}>add channel</h1>
 			<br />
 

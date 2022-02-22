@@ -4,47 +4,31 @@ import {
 	ButtonVariant,
 	MantineColor,
 	Loader as MantineLoader,
+	ButtonProps,
 } from '@mantine/core';
 
 import styles from './LoadingButton.module.scss';
 
-interface LoadingButtonProps {
-	onClick?: (e: any) => void;
-	label: string;
-	type?: 'submit' | 'button' | 'reset';
-	variant?: ButtonVariant;
-	color?: MantineColor;
-	style?: Record<string, unknown>;
-	loading?: boolean;
-	className?: string;
+interface LoadingButtonProps extends ButtonProps<'button'> {
+	label?: string;
+	loading: boolean;
 }
 
-const LoadingButton = ({
-	onClick,
+export const LoadingButton = ({
 	label,
-	type,
-	variant,
-	color,
-	style,
 	loading,
-	className,
-}: LoadingButtonProps): ReactElement => {
+	...props
+}: LoadingButtonProps) => {
 	return (
 		<div
-			className={`${styles.LoadingButton} ${
-				loading ? 'loading' : ''
-			} ${className}`}>
-			<Button
-				type={type}
-				onClick={onClick}
-				disabled={loading}
-				variant={variant}
-				color={color}
-				style={{ ...style, height: 35 }}>
+			className={`${styles.loadingButton} ${loading && styles.loading} ${
+				props.className
+			}`}>
+			<Button {...props}>
 				<span className={styles.spinner}>
 					<MantineLoader style={{ color: 'white' }} size={24} />
 				</span>
-				<span className={styles.label}>{label}</span>
+				{label && <span className={styles.label}>{label}</span>}
 			</Button>
 		</div>
 	);

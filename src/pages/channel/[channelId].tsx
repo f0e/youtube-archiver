@@ -1,5 +1,10 @@
 import React, { ReactElement, useContext, useEffect, useState } from 'react';
-import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
+import {
+	GetStaticPaths,
+	GetStaticProps,
+	InferGetStaticPropsType,
+	NextPage,
+} from 'next';
 import { Button } from '@mantine/core';
 import { ChannelCard } from '../../components/ChannelCard/ChannelCard';
 
@@ -8,13 +13,13 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 import Head from 'next/head';
 
-const ChannelPage = ({
+const ChannelPage: NextPage = ({
 	channel,
 }: InferGetStaticPropsType<typeof getStaticProps>): ReactElement => {
 	const router = useRouter();
 
 	return (
-		<main className="channel-page">
+		<main>
 			{!channel ? (
 				<>
 					<h2>failed to load channel</h2>

@@ -193,25 +193,23 @@ const DownloadedCount = (): ReactElement => {
 	return (
 		<div>
 			<div className="count">
-				<span className="count-number">
-					<CountUp
-						start={channelCount.from}
-						end={channelCount.to}
-						duration={0.25}
-					/>{' '}
-				</span>
-				<span>channels archived</span>
+				<CountUp
+					className="count-number"
+					start={channelCount.from}
+					end={channelCount.to}
+					duration={0.25}
+				/>
+				<span> channels archived</span>
 			</div>
 
 			<div className="count">
-				<span className="count-number">
-					<CountUp
-						start={videoCount.from}
-						end={videoCount.to}
-						duration={0.25}
-					/>{' '}
-				</span>
-				<span>videos archived</span>
+				<CountUp
+					className="count-number"
+					start={videoCount.from}
+					end={videoCount.to}
+					duration={0.25}
+				/>
+				<span> videos archived</span>
 			</div>
 		</div>
 	);

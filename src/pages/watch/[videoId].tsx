@@ -1,21 +1,16 @@
-import React, {
-	ReactElement,
-	useContext,
-	useEffect,
-	useRef,
-	useState,
-} from 'react';
-import Link from 'next/link';
+import React, { ReactElement, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
-import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
+import {
+	GetStaticPaths,
+	GetStaticProps,
+	InferGetStaticPropsType,
+	NextPage,
+} from 'next';
 import { Button } from '@mantine/core';
-import { useDocumentTitle } from '@mantine/hooks';
 import { BarChartIcon } from '@radix-ui/react-icons';
 
 import ConditionalLink from '../../components/ConditionalLink/ConditionalLink';
-import Loader from '../../components/Loader/Loader';
 import LoadingImage from '../../components/LoadingImage/LoadingImage';
-import ApiContext, { ApiState } from '../../context/ApiContext';
 import Channel from '../../types/channel';
 import Video from '../../types/video';
 
@@ -320,34 +315,49 @@ const VideoPlayer = ({
 	);
 };
 
-const Watch = ({
-	videoInfo,
-}: InferGetStaticPropsType<typeof getStaticProps>): ReactElement => {
+interface MainContentProps {
+	videoInfo: any | null;
+}
+
+const MainContent = ({ videoInfo }: MainContentProps): ReactElement => {
 	const router = useRouter();
 
-	return (
-		<main className={styles.watchPage}>
-			{!videoInfo ? (
-				<>
-					<h1>failed to load video</h1>
-					<Button onClick={() => router.back()}>back</Button>
-				</>
-			) : (
-				<>
-					<Head>
-						<title>
-							bhop archive | {videoInfo.channel.data.author} -{' '}
-							{videoInfo.video.data.title}
-						</title>
-					</Head>
+	if (!videoInfo)
+		return (
+			<>
+				<Head>
+					<title>bhop archive | video not found</title>
+				</Head>
 
-					<VideoPlayer
-						video={videoInfo.video}
-						channel={videoInfo.channel}
-						basicVideo={videoInfo.basicVideo}
-					/>
-				</>
-			)}
+				<h1>video not found</h1>
+				<Button onClick={() => router.back()}>back</Button>
+			</>
+		);
+
+	return (
+		<>
+			<Head>
+				<title>
+					bhop archive | {videoInfo.channel.data.author} -{' '}
+					{videoInfo.video.data.title}
+				</title>
+			</Head>
+
+			<VideoPlayer
+				video={videoInfo.video}
+				channel={videoInfo.channel}
+				basicVideo={videoInfo.basicVideo}
+			/>
+		</>
+	);
+};
+
+const Watch: NextPage = ({
+	videoInfo,
+}: InferGetStaticPropsType<typeof getStaticProps>): ReactElement => {
+	return (
+		<main style={{ maxWidth: '80rem' }}>
+			<MainContent videoInfo={videoInfo} />
 		</main>
 	);
 };

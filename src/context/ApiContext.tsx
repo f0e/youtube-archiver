@@ -2,16 +2,6 @@ import React, { createContext, FunctionComponent, useContext } from 'react';
 import { useNotifications } from '@mantine/notifications';
 import axios, { AxiosRequestConfig } from 'axios';
 
-export class ApiState {
-	data: any = null;
-	loading: boolean = true;
-	error: any | null = null;
-
-	constructor(startLoading: boolean = true) {
-		this.loading = startLoading;
-	}
-}
-
 type ApiCallParameters = {
 	[key: string]: any;
 };

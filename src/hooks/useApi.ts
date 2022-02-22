@@ -9,7 +9,7 @@ type ApiCallParameters = {
 
 export default function useApi(
 	url: string,
-	params: ApiCallParameters,
+	params?: ApiCallParameters,
 	dontNotifyErrors?: boolean
 ) {
 	const { data, error } = useSWR(url, (...args) =>

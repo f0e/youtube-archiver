@@ -26,7 +26,7 @@ const AcceptOrReject = ({
 		setDestination(destination);
 
 		try {
-			await Api.post('move-channel', {
+			await Api.post('/api/move-channel', {
 				channelId,
 				destination: newDestination,
 			});
