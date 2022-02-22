@@ -1,18 +1,17 @@
+.page {
+	width: auto;
+	padding-top: 1rem;
+
+	&.steev {
+		background-color: #961111;
+	}
+}
+
 .spacer {
 	border-top: 1px solid var(--card-border);
 
 	margin-top: 1rem;
 	margin-bottom: 1rem;
-}
-
-.page {
-	width: 80rem;
-	display: flex;
-	justify-content: center;
-
-	&.steev {
-		background-color: #961111;
-	}
 }
 
 .channelAvatar {
@@ -27,26 +26,41 @@
 }
 
 .video {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	position: relative;
 
-	&.steev2::after {
-		content: '47';
+	.videoPlayerContainer {
+		position: relative;
+		width: 100%;
 
-		position: absolute;
+		// todo: please refactor this.
+		max-height: calc(
+			100vh - 1rem - 4rem - 7.3rem
+		); // (-4rem navbar height, -7.3rem extra space at bottom)
 
-		right: -5rem;
-		top: 50vh;
+		&.steev2::after {
+			content: '47';
 
-		color: #000;
+			position: absolute;
 
-		font-size: 5rem;
-		font-family: 'Georgia';
+			right: -5rem;
+			top: 50vh;
+
+			color: #000;
+
+			font-size: 5rem;
+			font-family: 'Georgia';
+		}
 	}
 
 	.videoPlayer {
 		position: relative;
+
 		width: 100%;
-		max-height: 80vh;
+		height: 100%;
+
 		outline: none;
 
 		transition: opacity 0.15s;
@@ -58,183 +72,189 @@
 		}
 	}
 
-	.videoInfo {
-		display: flex;
-		justify-content: space-between;
-		align-items: flex-end;
+	.videoPage {
+		margin-top: 1.15rem;
 
-		padding-top: 0.65rem;
-		margin-bottom: 1rem;
+		width: 60rem;
+		max-width: 100%;
 
-		.viewsAndDate {
-			opacity: 0.75;
-		}
+		.videoInfo {
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-end;
 
-		.likes {
-			flex-shrink: 0;
+			margin-bottom: 1rem;
 
-			.likeNumber {
-				font-weight: bold;
-			}
-
-			> :not(.likeNumber) {
+			.viewsAndDate {
 				opacity: 0.75;
 			}
-		}
-	}
 
-	.videoChannel {
-		display: inline-flex;
-		gap: 0.75rem;
-		min-width: 10rem;
+			.likes {
+				flex-shrink: 0;
 
-		margin-bottom: 1rem;
+				.likeNumber {
+					font-weight: bold;
+				}
 
-		.channelAvatar {
-			width: 4rem;
-			height: 4rem;
-		}
-
-		.channelNameAndSubs {
-			.channelName {
-				font-size: 1.1em;
-
-				font-weight: bold;
-			}
-
-			.channelSubs {
-				font-size: 0.9em;
-				opacity: 0.75;
+				> :not(.likeNumber) {
+					opacity: 0.75;
+				}
 			}
 		}
-	}
 
-	.videoDescription {
-		background-color: var(--card-background);
-		border: 1px solid var(--card-border);
+		.videoChannel {
+			display: inline-flex;
+			gap: 0.75rem;
+			min-width: 10rem;
 
-		border-radius: 0.25rem;
+			margin-bottom: 1rem;
 
-		padding: 1rem;
-		margin-bottom: 1rem;
+			.channelAvatar {
+				width: 4rem;
+				height: 4rem;
+			}
 
-		white-space: pre-wrap;
-		overflow-wrap: break-word;
-	}
+			.channelNameAndSubs {
+				.channelName {
+					font-size: 1.1em;
 
-	.videoMetadata {
-		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
+					font-weight: bold;
+				}
 
-		.videoCategory {
+				.channelSubs {
+					font-size: 0.9em;
+					opacity: 0.75;
+				}
+			}
 		}
 
-		.videoSong {
-			display: flex;
-			align-items: center;
-			gap: 0.35rem;
-
-			opacity: 0.75;
-		}
-	}
-
-	.commentCount {
-		opacity: 0.75;
-	}
-
-	.comments {
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
-
-		.comment {
-			display: flex;
-			flex-direction: column;
-
+		.videoDescription {
 			background-color: var(--card-background);
 			border: 1px solid var(--card-border);
 
-			padding: 0.5rem;
-
 			border-radius: 0.25rem;
 
-			.commentMain {
+			padding: 1rem;
+			margin-bottom: 1rem;
+
+			white-space: pre-wrap;
+			overflow-wrap: break-word;
+		}
+
+		.videoMetadata {
+			display: flex;
+			flex-direction: column;
+			gap: 0.5rem;
+
+			.videoCategory {
+			}
+
+			.videoSong {
+				display: flex;
+				align-items: center;
+				gap: 0.35rem;
+
+				opacity: 0.75;
+			}
+		}
+
+		.commentCount {
+			opacity: 0.75;
+		}
+
+		.comments {
+			display: flex;
+			flex-direction: column;
+			gap: 1rem;
+
+			.comment {
 				display: flex;
 				flex-direction: column;
-				gap: 0.5rem;
 
-				.commentTop {
+				background-color: var(--card-background);
+				border: 1px solid var(--card-border);
+
+				padding: 0.5rem;
+
+				border-radius: 0.25rem;
+
+				.commentMain {
 					display: flex;
-					gap: 0.75rem;
+					flex-direction: column;
+					gap: 0.5rem;
 
-					.channelAvatar {
-						width: 3rem;
-						height: 3rem;
+					.commentTop {
+						display: flex;
+						gap: 0.75rem;
+
+						.channelAvatar {
+							width: 3rem;
+							height: 3rem;
+						}
+
+						.channelNameAndDate {
+							display: flex;
+							align-items: center;
+							gap: 0.35rem;
+
+							.channelName {
+								display: inline;
+
+								font-weight: bold;
+
+								&.uploader {
+									background-color: var(--card-highlight);
+									color: var(--card-highlight-text-colour);
+
+									padding: 0rem 0.25rem;
+
+									border-radius: 0.25rem;
+								}
+							}
+
+							.commentDate {
+								font-size: 0.9em;
+								opacity: 0.75;
+							}
+
+							.commentText {
+								margin-top: 0.1rem;
+
+								font-size: 0.9em;
+								opacity: 0.75;
+							}
+						}
 					}
 
-					.channelNameAndDate {
+					.commentBottom {
 						display: flex;
-						align-items: center;
-						gap: 0.35rem;
+						flex-direction: column;
 
-						.channelName {
-							display: inline;
+						font-size: 0.9em;
 
-							font-weight: bold;
+						.commentLikes {
+							.commentlikeNumber {
+								font-weight: bold;
+							}
 
-							&.uploader {
-								background-color: var(--card-highlight);
-								color: var(--card-highlight-text-colour);
-
-								padding: 0rem 0.25rem;
-
-								border-radius: 0.25rem;
+							&:not(.commentlikeNumber) {
+								opacity: 0.75;
 							}
 						}
 
-						.commentDate {
-							font-size: 0.9em;
-							opacity: 0.75;
-						}
-
-						.commentText {
-							margin-top: 0.1rem;
-
-							font-size: 0.9em;
+						.favourited {
 							opacity: 0.75;
 						}
 					}
 				}
 
-				.commentBottom {
+				.commentReplies {
 					display: flex;
 					flex-direction: column;
+					gap: 0.75rem;
 
-					font-size: 0.9em;
-
-					.commentLikes {
-						.commentlikeNumber {
-							font-weight: bold;
-						}
-
-						&:not(.commentlikeNumber) {
-							opacity: 0.75;
-						}
-					}
-
-					.favourited {
-						opacity: 0.75;
-					}
+					margin-top: 1rem;
 				}
-			}
-
-			.commentReplies {
-				display: flex;
-				flex-direction: column;
-				gap: 0.75rem;
-
-				margin-top: 1rem;
 			}
 		}
 	}

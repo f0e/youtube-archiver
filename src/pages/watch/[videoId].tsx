@@ -199,23 +199,31 @@ const VideoStream = ({ video }: VideoStreamProps): ReactElement => {
 		setLoadingVideo(false);
 	};
 
+	const { width, height } = video.data.formats.at(-1);
+
 	return (
-		<video
-			className={`${styles.videoPlayer} ${loadingVideo && styles.loadingVideo}`}
+		<div
+			className={`${styles.videoPlayerContainer} ${
+				video.id == 'KVbqySecMjk' && styles.steev2
+			}`}
 			style={{
-				aspectRatio: `${video.data.width} / ${video.data.height}`,
-			}}
-			controls
-			onLoadedData={showVideo}
-			ref={videoRef}
-			onVolumeChange={storeVolume}
-			// autoPlay
-		>
-			<source
-				src={`/api/get-video-stream?videoId=${video.id}`}
-				type="video/mp4"
-			/>
-		</video>
+				aspectRatio: `${width} / ${height}`,
+			}}>
+			<video
+				ref={videoRef}
+				className={`${styles.videoPlayer} ${
+					loadingVideo && styles.loadingVideo
+				}`}
+				onLoadedData={showVideo}
+				onVolumeChange={storeVolume}
+				controls
+				autoPlay>
+				<source
+					src={`/api/get-video-stream?videoId=${video.id}`}
+					type="video/mp4"
+				/>
+			</video>
+		</div>
 	);
 };
 
@@ -239,95 +247,98 @@ const VideoPlayer = ({
 		});
 
 	return (
-		<div
-			className={`${styles.video} ${
-				video.id == 'KVbqySecMjk' && styles.steev2
-			}`}>
+		<div className={styles.video}>
 			<VideoStream video={video} />
 
-			<div className={styles.videoInfo}>
-				<div>
-					<h1 style={{ marginBottom: '0.5rem' }}>{video.data.title}</h1>
+			<div className={styles.videoPage}>
+				<div className={styles.videoInfo}>
+					<div>
+						<h1 style={{ marginBottom: '0.5rem' }}>{video.data.title}</h1>
 
-					<div className={styles.viewsAndDate}>
-						{basicVideo.viewCountText} • {`${uploadDate}`}
-					</div>
-				</div>
-
-				<div className={styles.likes}>
-					{!video.data.like_count ? (
-						<div>likes hidden</div>
-					) : (
-						<>
-							<span className={styles.likeNumber}>{video.data.like_count}</span>
-							<span> likes</span>
-						</>
-					)}
-				</div>
-			</div>
-
-			<div className={styles.spacer} />
-
-			<ConditionalLink href={`/channel/${video.data.channel_id}`}>
-				<a className={styles.videoChannel}>
-					<div className={styles.channelAvatar}>
-						<LoadingImage
-							className={styles.channelAvatar}
-							src={channel.data.authorThumbnails.at(-1).url}
-							alt={`${channel.data.author}'s avatar`}
-						/>
-					</div>
-
-					<div className={styles.channelNameAndSubs}>
-						<div className={styles.channelName}>{video.data.channel}</div>
-						<div className={styles.channelSubs}>
-							{channel.data.subscriberCount == 0
-								? '0 or hidden subscribers'
-								: channel.data.subscriberText}
+						<div className={styles.viewsAndDate}>
+							{basicVideo.viewCountText} • {`${uploadDate}`}
 						</div>
 					</div>
-				</a>
-			</ConditionalLink>
 
-			{video.data.description && (
-				<div className={styles.videoDescription}>{video.data.description}</div>
-			)}
-
-			<div className={styles.videoMetadata}>
-				<div className={styles.videoCategory}>
-					{video.data.categories.join(', ')}
+					<div className={styles.likes}>
+						{!video.data.like_count ? (
+							<div>likes hidden</div>
+						) : (
+							<>
+								<span className={styles.likeNumber}>
+									{video.data.like_count}
+								</span>
+								<span> likes</span>
+							</>
+						)}
+					</div>
 				</div>
 
-				{video.data.track && (
-					<a
-						className={styles.videoSong}
-						href={`https://www.youtube.com/results?search_query=${video.data.artist} - ${video.data.song}`}>
-						<BarChartIcon className={styles.songIcon} />
+				<div className={styles.spacer} />
 
-						<div className={styles.songTitle}>
-							{video.data.artist} - {video.data.track}
+				<ConditionalLink href={`/channel/${video.data.channel_id}`}>
+					<a className={styles.videoChannel}>
+						<div className={styles.channelAvatar}>
+							<LoadingImage
+								className={styles.channelAvatar}
+								src={channel.data.authorThumbnails.at(-1).url}
+								alt={`${channel.data.author}'s avatar`}
+							/>
+						</div>
+
+						<div className={styles.channelNameAndSubs}>
+							<div className={styles.channelName}>{video.data.channel}</div>
+							<div className={styles.channelSubs}>
+								{channel.data.subscriberCount == 0
+									? '0 or hidden subscribers'
+									: channel.data.subscriberText}
+							</div>
 						</div>
 					</a>
+				</ConditionalLink>
+
+				{video.data.description && (
+					<div className={styles.videoDescription}>
+						{video.data.description}
+					</div>
+				)}
+
+				<div className={styles.videoMetadata}>
+					<div className={styles.videoCategory}>
+						{video.data.categories.join(', ')}
+					</div>
+
+					{video.data.track && (
+						<a
+							className={styles.videoSong}
+							href={`https://www.youtube.com/results?search_query=${video.data.artist} - ${video.data.song}`}>
+							<BarChartIcon className={styles.songIcon} />
+
+							<div className={styles.songTitle}>
+								{video.data.artist} - {video.data.track}
+							</div>
+						</a>
+					)}
+				</div>
+
+				<div className={styles.spacer} />
+
+				{video.data.comments.length == 0 ? (
+					<h2>no comments / disabled</h2>
+				) : (
+					<>
+						<h2>
+							comments
+							<span className={styles.commentCount}>
+								{' '}
+								- {video.data.comments.length}
+							</span>
+						</h2>
+
+						<VideoComments comments={video.data.comments} />
+					</>
 				)}
 			</div>
-
-			<div className={styles.spacer} />
-
-			{video.data.comments.length == 0 ? (
-				<h2>no comments / disabled</h2>
-			) : (
-				<>
-					<h2>
-						comments
-						<span className={styles.commentCount}>
-							{' '}
-							- {video.data.comments.length}
-						</span>
-					</h2>
-
-					<VideoComments comments={video.data.comments} />
-				</>
-			)}
 		</div>
 	);
 };
@@ -373,7 +384,10 @@ const Watch: NextPage = ({
 	videoInfo,
 }: InferGetStaticPropsType<typeof getStaticProps>): ReactElement => {
 	return (
-		<main style={{ width: '80rem' }}>
+		<main
+			className={`${styles.page} ${
+				videoInfo && videoInfo.video.id == 'KVbqySecMjk' && styles.steev
+			}`}>
 			<MainContent videoInfo={videoInfo} />
 		</main>
 	);
@@ -400,28 +414,27 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 		// remove unnecessary data to lower total data size
 		const requiredChannelDataFields = [
-			'authorThumbnails',
 			'author',
+			'authorThumbnails',
 			'subscriberCount',
 			'subscriberText',
 		];
 
 		const requiredVideoDataFields = [
-			'upload_date',
-			'width',
-			'height',
-			'title',
-			'like_count',
+			'artist',
+			'categories',
 			'channel_id',
 			'channel',
-			'description',
-			'categories',
-			'track',
-			'artist',
-			'song',
-			'artist',
-			'track',
 			'comments',
+			'description',
+			'formats',
+			'height',
+			'like_count',
+			'song',
+			'title',
+			'track',
+			'upload_date',
+			'width',
 		];
 
 		const requiredBasicVideoFields = ['viewCountText'];
