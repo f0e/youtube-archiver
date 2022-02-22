@@ -1,37 +1,23 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react';
-import Image from 'next/image';
+import React, { ReactElement } from 'react';
 
-import ApiContext from '../../context/ApiContext';
 import ConditionalLink from '../ConditionalLink/ConditionalLink';
-import Loader from '../Loader/Loader';
+import LoadingImage from '@components/LoadingImage/LoadingImage';
+import useApi from '@hooks/useApi';
 
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime);
 
 import styles from './VideoCard.module.scss';
-import LoadingImage from '@components/LoadingImage/LoadingImage';
 
 interface VideoCardDateProps {
 	basicVideo: any;
 }
 
 const VideoCardDate = ({ basicVideo }: VideoCardDateProps) => {
-	const [date, setDate] = useState<string | null>(null);
-
-	const Api = useContext(ApiContext);
-
-	const loadDate = async () => {
-		const newDate = await Api.get('/api/get-video-upload-date', {
-			videoId: basicVideo.videoId,
-		});
-
-		setDate(newDate);
-	};
-
-	useEffect(() => {
-		loadDate();
-	}, []);
+	const { data: date } = useApi('/api/get-video-upload-date', {
+		videoId: basicVideo.videoId,
+	});
 
 	return (
 		<>

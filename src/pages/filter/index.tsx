@@ -11,7 +11,6 @@ import CountUp from 'react-countup';
 import AcceptOrReject from '../../components/AcceptOrReject/AcceptOrReject';
 import { ChannelCard } from '../../components/ChannelCard/ChannelCard';
 import ApiContext from '../../context/ApiContext';
-import Channel from '../../types/channel';
 
 import styles from './filter.module.scss';
 

@@ -37,8 +37,8 @@
 
 		// todo: please refactor this.
 		max-height: calc(
-			100vh - 1rem - 4rem - 7.3rem
-		); // (-4rem navbar height, -7.3rem extra space at bottom)
+			100vh - 1rem - 60px - 7.3rem
+		); // (-1rem page top padding, -60px navbar height, -7.3rem extra space at bottom)
 
 		&.steev2::after {
 			content: '47';

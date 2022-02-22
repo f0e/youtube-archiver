@@ -1,11 +1,8 @@
-import React, { ReactElement, useContext, useState } from 'react';
-import Image from 'next/image';
-import { Badge, Button, Card, Group, Text } from '@mantine/core';
+import React, { ReactElement } from 'react';
+import { Card } from '@mantine/core';
 
-import ApiContext from '../../context/ApiContext';
 import Channel from '../../types/channel';
 import ConditionalLink from '../ConditionalLink/ConditionalLink';
-import LoadingButton from '../LoadingButton/LoadingButton';
 import { VideoCard } from '../VideoCard/VideoCard';
 
 import styles from './ChannelCard.module.scss';

@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react';
+import React, { ReactElement } from 'react';
 import {
 	GetStaticPaths,
 	GetStaticProps,

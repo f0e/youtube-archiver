@@ -40,18 +40,18 @@ const AcceptOrReject = ({
 	return (
 		<div className={styles.acceptOrReject}>
 			<LoadingButton
-				onClick={(e: any) => acceptOrReject('accept')}
+				onClick={() => acceptOrReject('accept')}
 				label="accept"
 				loading={destination == 'accept'}
 			/>
 			<LoadingButton
-				onClick={(e: any) => acceptOrReject('acceptNoDownload')}
+				onClick={() => acceptOrReject('acceptNoDownload')}
 				variant="outline"
 				label="accept (no downloads)"
 				loading={destination == 'acceptNoDownload'}
 			/>
 			<LoadingButton
-				onClick={(e: any) => acceptOrReject('reject')}
+				onClick={() => acceptOrReject('reject')}
 				color="red"
 				label="reject"
 				loading={destination == 'reject'}

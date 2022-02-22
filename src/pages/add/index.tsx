@@ -114,25 +114,25 @@ const SearchChannelsResult = ({
 				return (
 					<div className={styles.addChannel}>
 						<LoadingButton
-							onClick={(e: any) => addChannel('accept')}
+							onClick={() => addChannel('accept')}
 							label="add"
 							loading={destination == 'accept'}
 						/>
 						<LoadingButton
-							onClick={(e: any) => addChannel('acceptNoDownload')}
+							onClick={() => addChannel('acceptNoDownload')}
 							variant="outline"
 							label="add (no downloads)"
 							loading={destination == 'acceptNoDownload'}
 						/>
 						<LoadingButton
-							onClick={(e: any) => addChannel('reject')}
+							onClick={() => addChannel('reject')}
 							color="red"
 							label="reject"
 							loading={destination == 'reject'}
 						/>
 						<Button
 							variant="outline"
-							onClick={(e: any) => getNextChannel()}
+							onClick={() => getNextChannel()}
 							color="red">
 							don{"'"}t add
 						</Button>

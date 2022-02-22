@@ -1,10 +1,4 @@
-import React, {
-	ReactElement,
-	useContext,
-	useEffect,
-	useRef,
-	useState,
-} from 'react';
+import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import { NextPage } from 'next';
 import Head from 'next/head';
 import { Button, TextInput } from '@mantine/core';
@@ -18,13 +12,10 @@ import { VideoCard } from '@components/VideoCard/VideoCard';
 import useApi from '@hooks/useApi';
 
 import Channel from '@customTypes/channel';
-import Video from '@customTypes/video';
 
 import Fuse from 'fuse.js';
 
 import styles from './browse.module.scss';
-import useSWR from 'swr';
-import axios from 'axios';
 
 interface SearchItem {
 	name: string;
@@ -70,6 +61,8 @@ interface SearchProps {
 }
 
 const Search = ({ channels: allChannels }: SearchProps): ReactElement => {
+	const numRandomVideos = 10;
+
 	const [results, setResults] = useState<any[]>([]);
 	const [searched, setSearched] = useState(false);
 
@@ -78,7 +71,7 @@ const Search = ({ channels: allChannels }: SearchProps): ReactElement => {
 	const [randomVideos, setRandomVideos] = useState<any[]>(() => {
 		const randomVideos: any[] = [];
 
-		while (randomVideos.length < Math.min(10, videos.length)) {
+		while (randomVideos.length < Math.min(numRandomVideos, videos.length)) {
 			const randomVideo = videos[Math.floor(Math.random() * videos.length)];
 
 			if (randomVideos.includes(randomVideo)) continue;

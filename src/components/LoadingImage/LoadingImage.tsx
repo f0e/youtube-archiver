@@ -1,4 +1,4 @@
-import React, { ReactElement, useRef, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 
 import Image from 'next/image';
 

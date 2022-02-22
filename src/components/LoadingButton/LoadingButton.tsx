@@ -1,8 +1,6 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import {
 	Button,
-	ButtonVariant,
-	MantineColor,
 	Loader as MantineLoader,
 	ButtonProps,
 } from '@mantine/core';

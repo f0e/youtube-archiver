@@ -16,6 +16,7 @@
 		"@radix-ui/react-icons": "^1.1.0",
 		"axios": "^0.26.0",
 		"dayjs": "^1.10.7",
+		"eslint-plugin-unused-imports": "^2.0.0",
 		"framer-motion": "^6.2.7",
 		"fuse.js": "^6.5.3",
 		"next": "12.1.0",

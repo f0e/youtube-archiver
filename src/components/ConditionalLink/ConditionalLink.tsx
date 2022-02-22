@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { AnchorHTMLAttributes, forwardRef } from 'react';
+import { AnchorHTMLAttributes } from 'react';
 
 interface ConditionalLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
 	children: any;

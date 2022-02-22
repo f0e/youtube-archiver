@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext } from 'react';
+import React, { ReactElement } from 'react';
 import { ActionIcon, useMantineColorScheme } from '@mantine/core';
 import { MoonIcon } from '@radix-ui/react-icons';
 

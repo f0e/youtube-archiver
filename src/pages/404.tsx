@@ -1,7 +1,6 @@
 import { Button } from '@mantine/core';
 import { NextPage } from 'next';
 import Head from 'next/head';
-import Link from 'next/link';
 
 import ConditionalLink from '@components/ConditionalLink/ConditionalLink';
 

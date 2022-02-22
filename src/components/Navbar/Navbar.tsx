@@ -1,6 +1,4 @@
-import { ReactElement, useEffect, useRef, useState } from 'react';
-import { Header } from '@mantine/core';
-import Link from 'next/link';
+import { ReactElement, useRef, useState } from 'react';
 
 import DarkModeToggler from '../DarkModeToggler/DarkModeToggler';
 
@@ -121,7 +119,7 @@ const Navbar = (): ReactElement => {
 			<div
 				ref={linksRef}
 				className={`navbar-links ${styles.links}`}
-				onMouseLeave={(e) => onExit()}>
+				onMouseLeave={onExit}>
 				{getMotionDiv()}
 
 				{links.map((link) => (
