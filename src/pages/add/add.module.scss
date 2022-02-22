@@ -1,0 +1,32 @@
+.addChannelPage {
+	max-width: 60rem;
+	margin: 0 auto;
+}
+
+.addChannel {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+	gap: 0.5rem;
+
+	max-width: 20rem;
+}
+
+.channelAddForm {
+	display: flex;
+	gap: 0.5rem;
+
+	> :first-child {
+		flex-grow: 1;
+	}
+
+	.channelAddMultiple {
+		textarea {
+			height: 15rem;
+		}
+	}
+}
+
+.lastChannelExists {
+	opacity: 0.75;
+}

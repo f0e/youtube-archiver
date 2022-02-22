@@ -1,17 +1,15 @@
 import React, { ReactElement, useContext } from 'react';
-import { ActionIcon } from '@mantine/core';
+import { ActionIcon, useMantineColorScheme } from '@mantine/core';
 import { MoonIcon } from '@radix-ui/react-icons';
 
-import ThemeContext from '../../context/ThemeContext';
-
 const DarkModeToggler = (): ReactElement => {
-	const { darkTheme, toggleDarkTheme } = useContext(ThemeContext);
+	const { colorScheme, toggleColorScheme } = useMantineColorScheme();
 
 	return (
 		<ActionIcon
-			variant={darkTheme ? 'filled' : 'outline'}
+			variant={colorScheme == 'dark' ? 'filled' : 'outline'}
 			color="indigo"
-			onClick={toggleDarkTheme}
+			onClick={() => toggleColorScheme()}
 			aria-label="toggle dark mode">
 			<MoonIcon />
 		</ActionIcon>

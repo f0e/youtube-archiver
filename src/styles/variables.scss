@@ -10,7 +10,7 @@
 	--card-highlight: rgb(136, 136, 136);
 	--card-highlight-text-colour: #fff;
 
-	--navbar-background: 255, 255, 255;
+	--navbar-background: rgba(255, 255, 255, 0.9);
 	--navbar-highlight-rgb: 0, 0, 0;
 	--navbar-highlight-opacity: 0.1;
 }
@@ -24,7 +24,7 @@
 	--card-highlight: rgb(77, 77, 77);
 	--card-highlight-text-colour: #fff;
 
-	--navbar-background: 0, 0, 0;
+	--navbar-background: rgba(0, 0, 0, 0.9);
 	--navbar-highlight-rgb: 255, 255, 255;
 	--navbar-highlight-opacity: 0.25;
 }
