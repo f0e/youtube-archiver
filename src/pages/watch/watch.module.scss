@@ -216,13 +216,15 @@
 								font-size: 0.9em;
 								opacity: 0.75;
 							}
+						}
 
-							.commentText {
-								margin-top: 0.1rem;
+						.commentText {
+							margin-top: 0.1rem;
 
-								font-size: 0.9em;
-								opacity: 0.75;
-							}
+							font-size: 0.9em;
+							opacity: 0.75;
+
+							overflow-wrap: break-word;
 						}
 					}
 

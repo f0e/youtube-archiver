@@ -55,7 +55,7 @@ const Comment = ({ comment, replies }: CommentProps): ReactElement => {
 						)}
 					</div>
 
-					<div>
+					<div style={{ minWidth: 0 }}>
 						<div className={styles.channelNameAndDate}>
 							{channelLink(
 								<div

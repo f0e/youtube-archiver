@@ -12,9 +12,9 @@ export default function useApi(
 	params?: ApiCallParameters,
 	dontNotifyErrors?: boolean
 ) {
-	const { data, error } = useSWR(url, (...args) =>
+	const { data, error } = useSWR(`${url}${JSON.stringify(params)}`, () =>
 		axios
-			.get(...args, {
+			.get(url, {
 				params,
 			})
 			.then((res) => res.data)
