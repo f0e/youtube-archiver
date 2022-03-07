@@ -299,7 +299,7 @@ const AddChannel: NextPage = () => {
 	return (
 		<main>
 			<Head>
-				<title>bhop archive | add</title>
+				<title>archive | add</title>
 			</Head>
 
 			<h1 style={{ marginBottom: '0.5rem' }}>add channel</h1>

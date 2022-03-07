@@ -354,7 +354,7 @@ const MainContent = ({ videoInfo }: MainContentProps): ReactElement => {
 		return (
 			<>
 				<Head>
-					<title>bhop archive | video not found</title>
+					<title>archive | video not found</title>
 				</Head>
 
 				<h1>video not found</h1>
@@ -366,7 +366,7 @@ const MainContent = ({ videoInfo }: MainContentProps): ReactElement => {
 		<>
 			<Head>
 				<title>
-					bhop archive | {videoInfo.channel.data.author} -{' '}
+					archive | {videoInfo.channel.data.author} -{' '}
 					{videoInfo.video.data.title}
 				</title>
 			</Head>

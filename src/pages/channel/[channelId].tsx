@@ -24,7 +24,7 @@ const MainContent = ({ channel }: MainContentProps): ReactElement => {
 		return (
 			<>
 				<Head>
-					<title>bhop archive | channel not found</title>
+					<title>archive | channel not found</title>
 				</Head>
 
 				<h1>channel not found</h1>
@@ -35,7 +35,7 @@ const MainContent = ({ channel }: MainContentProps): ReactElement => {
 	return (
 		<>
 			<Head>
-				<title>bhop archive | {channel.data.author}</title>
+				<title>archive | {channel.data.author}</title>
 			</Head>
 
 			<ChannelCard parsed={true} channel={channel} />

@@ -70,7 +70,7 @@ const Filter: NextPage = (): ReactElement => {
 	return (
 		<main>
 			<Head>
-				<title>bhop archive | filter</title>
+				<title>archive | filter</title>
 			</Head>
 
 			<h1 style={{ marginBottom: '0.5rem' }}>channel filter</h1>

@@ -61,7 +61,7 @@ const App = ({ Component, pageProps, router }: AppProps) => {
 	return (
 		<>
 			<Head>
-				<title>bhop archive</title>
+				<title>archive</title>
 				<meta
 					name="description"
 					content="preserving the history of the greatest community in the world."

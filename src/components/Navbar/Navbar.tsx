@@ -113,7 +113,7 @@ const Navbar = (): ReactElement => {
 	return (
 		<div className={styles.navbar}>
 			<ConditionalLink href="/" className={styles.navbarTitle}>
-				bhop archive
+				archive
 			</ConditionalLink>
 
 			<div

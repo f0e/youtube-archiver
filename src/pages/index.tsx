@@ -12,10 +12,10 @@ const Home: NextPage = () => {
 	return (
 		<main>
 			<Head>
-				<title>bhop archive</title>
+				<title>archive</title>
 			</Head>
 
-			<h1>bhop archive</h1>
+			<h1>archive</h1>
 
 			<div className={styles.links}>
 				<ConditionalLink href="/browse">

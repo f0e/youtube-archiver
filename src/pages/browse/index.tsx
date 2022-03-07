@@ -238,7 +238,7 @@ const Browse: NextPage = () => {
 	return (
 		<main>
 			<Head>
-				<title>bhop archive | browse</title>
+				<title>archive | browse</title>
 			</Head>
 
 			<h1 style={{ marginBottom: '0.5rem' }}>browse</h1>

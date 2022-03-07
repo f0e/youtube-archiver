@@ -8,7 +8,7 @@ const Custom404: NextPage = () => {
 	return (
 		<main>
 			<Head>
-				<title>bhop archive | 404</title>
+				<title>archive | 404</title>
 			</Head>
 
 			<h1>404</h1>
