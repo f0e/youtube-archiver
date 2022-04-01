@@ -6,7 +6,9 @@ import useApi from '@hooks/useApi';
 
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import utc from 'dayjs/plugin/utc';
 dayjs.extend(relativeTime);
+dayjs.extend(utc);
 
 import styles from './VideoCard.module.scss';
 
@@ -24,7 +26,7 @@ const VideoCardDate = ({ basicVideo }: VideoCardDateProps) => {
 			{!date ? (
 				<span className={styles.outdatedDate}>{basicVideo.publishedText}</span>
 			) : (
-				dayjs(date, 'YYYY-MM-DD').fromNow()
+				dayjs.utc(date, 'YYYY-MM-DD').from(dayjs.utc())
 			)}
 		</>
 	);
