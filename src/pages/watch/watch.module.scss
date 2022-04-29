@@ -85,6 +85,31 @@
 
 			margin-bottom: 1rem;
 
+			.titleAndVisibility {
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+
+				margin-bottom: 0.5rem;
+
+				.title {
+					margin: 0;
+				}
+			}
+
+			.visibility {
+				display: inline-block;
+
+				background-color: var(--card-background);
+				border: 1px solid var(--card-border);
+
+				border-radius: 0.25rem;
+
+				padding: 0.2rem 0.5rem;
+
+				font-size: 0.95em;
+			}
+
 			.viewsAndDate {
 				opacity: 0.75;
 			}
@@ -145,6 +170,12 @@
 			display: flex;
 			flex-direction: column;
 			gap: 0.5rem;
+
+			.youtubeLink {
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+			}
 
 			.videoCategory {
 			}

@@ -7,7 +7,7 @@ import {
 	NextPage,
 } from 'next';
 import { Button } from '@mantine/core';
-import { BarChartIcon } from '@radix-ui/react-icons';
+import { BarChartIcon, ExternalLinkIcon } from '@radix-ui/react-icons';
 
 import ConditionalLink from '../../components/ConditionalLink/ConditionalLink';
 import LoadingImage from '../../components/LoadingImage/LoadingImage';
@@ -230,14 +230,9 @@ const VideoStream = ({ video }: VideoStreamProps): ReactElement => {
 interface VideoPlayerProps {
 	video: Video;
 	channel: Channel;
-	basicVideo: any;
 }
 
-const VideoPlayer = ({
-	video,
-	channel,
-	basicVideo,
-}: VideoPlayerProps): ReactElement => {
+const VideoPlayer = ({ video, channel }: VideoPlayerProps): ReactElement => {
 	const uploadDate = dayjs(video.data.upload_date, 'YYYY-MM-DD')
 		.toDate()
 		.toLocaleDateString('en-US', {
@@ -246,6 +241,15 @@ const VideoPlayer = ({
 			year: 'numeric',
 		});
 
+	const numberWithCommas = (n: number) =>
+		n.toString().replace(/\B(?!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+
+	const visibilityDialog = () => {
+		if (video.data.availability == 'public') return;
+
+		return <div className={styles.visibility}>{video.data.availability}</div>;
+	};
+
 	return (
 		<div className={styles.video}>
 			<VideoStream video={video} />
@@ -253,10 +257,15 @@ const VideoPlayer = ({
 			<div className={styles.videoPage}>
 				<div className={styles.videoInfo}>
 					<div>
-						<h1 style={{ marginBottom: '0.5rem' }}>{video.data.title}</h1>
+						<div className={styles.titleAndVisibility}>
+							{visibilityDialog()}
+
+							<h1 className={styles.title}>{video.data.title}</h1>
+						</div>
 
 						<div className={styles.viewsAndDate}>
-							{basicVideo.viewCountText} • {`${uploadDate}`}
+							{numberWithCommas(video.data.view_count)} views •{' '}
+							{`${uploadDate}`}
 						</div>
 					</div>
 
@@ -306,6 +315,17 @@ const VideoPlayer = ({
 				<div className={styles.videoMetadata}>
 					<div className={styles.videoCategory}>
 						{video.data.categories.join(', ')}
+					</div>
+
+					<div className={styles.youtubeLink}>
+						<ExternalLinkIcon />
+						<a
+							className={styles.videoSong}
+							href={video.data.original_url}
+							target="_blank"
+							rel="noreferrer">
+							View on YouTube
+						</a>
 					</div>
 
 					{video.data.track && (
@@ -371,11 +391,7 @@ const MainContent = ({ videoInfo }: MainContentProps): ReactElement => {
 				</title>
 			</Head>
 
-			<VideoPlayer
-				video={videoInfo.video}
-				channel={videoInfo.channel}
-				basicVideo={videoInfo.basicVideo}
-			/>
+			<VideoPlayer video={videoInfo.video} channel={videoInfo.channel} />
 		</>
 	);
 };
@@ -422,6 +438,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 		const requiredVideoDataFields = [
 			'artist',
+			'availability',
 			'categories',
 			'channel_id',
 			'channel',
@@ -430,10 +447,12 @@ export const getStaticProps: GetStaticProps = async (context) => {
 			'formats',
 			'height',
 			'like_count',
+			'original_url',
 			'song',
 			'title',
 			'track',
 			'upload_date',
+			'view_count',
 			'width',
 		];
 
