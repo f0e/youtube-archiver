@@ -1,4 +1,4 @@
-# YouTube Archiver - Client
+# YouTube Archiver
 
 An application built to archive YouTube content and rehost it inside a clean modern interface.
 
