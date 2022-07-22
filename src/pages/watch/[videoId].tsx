@@ -331,7 +331,7 @@ const VideoPlayer = ({ video, channel }: VideoPlayerProps): ReactElement => {
 					{video.data.track && (
 						<a
 							className={styles.videoSong}
-							href={`https://www.youtube.com/results?search_query=${video.data.artist} - ${video.data.song}`}>
+							href={`https://www.youtube.com/results?search_query=${video.data.artist} - ${video.data.track}`}>
 							<BarChartIcon className={styles.songIcon} />
 
 							<div className={styles.songTitle}>
