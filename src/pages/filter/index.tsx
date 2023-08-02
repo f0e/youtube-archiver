@@ -51,20 +51,27 @@ const QueueCount = (): ReactElement => {
 
 const Filter: NextPage = (): ReactElement => {
 	const [channels, setChannels] = useState<any[]>([]);
+	const [skipList, setSkipList] = useState<string[]>([]);
 
 	const Api = useContext(ApiContext);
 
 	const getNewChannel = async () => {
-		const channel = await Api.get('/api/get-queued-channel');
+		const channel = await Api.get('/api/get-queued-channel', {
+			skip: skipList,
+		});
 		setChannels([channel]);
 	};
 
 	useEffect(() => {
 		getNewChannel();
-	}, []);
+	}, [skipList]);
 
 	const onAcceptReject = () => {
 		getNewChannel();
+	};
+
+	const onSkip = (channel: any) => {
+		setSkipList((cur) => cur.concat(channel.id));
 	};
 
 	return (
@@ -85,15 +92,27 @@ const Filter: NextPage = (): ReactElement => {
 						channel={channel.channel}
 						channelTools={
 							<>
-								<div className="count">
-									<span>commented on </span>
-									<span className="count-number">{channel.commented}</span>
-									<span> channels</span>
+								<div className={styles.channelStats}>
+									<div className="count">
+										<span>commented on </span>
+										<span className="count-number">{channel.commented}</span>
+										<span> channels</span>
+									</div>
+
+									{/* {channel.videosFromPlaylists && ( */}
+									<div className="count">
+										<span className="count-number">
+											{channel.videosFromPlaylists || 0}
+										</span>
+										<span> videos in playlists</span>
+									</div>
+									{/* )} */}
 								</div>
 
 								<AcceptOrReject
 									channelId={channel.channel.id}
 									onAcceptReject={onAcceptReject}
+									onSkip={() => onSkip(channel.channel)}
 								/>
 							</>
 						}

@@ -343,7 +343,7 @@ const VideoPlayer = ({ video, channel }: VideoPlayerProps): ReactElement => {
 
 				<div className={styles.spacer} />
 
-				{video.data.comments.length == 0 ? (
+				{!video.data.comments || video.data.comments.length == 0 ? (
 					<h2>no comments / disabled</h2>
 				) : (
 					<>

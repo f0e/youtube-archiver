@@ -13,6 +13,6 @@ module.exports = {
 	reactStrictMode: true,
 	rewrites: async () => rewritesConfig,
 	images: {
-		domains: ['yt3.ggpht.com', 'i.ytimg.com'],
+		domains: ['yt3.ggpht.com', 'i.ytimg.com', 'yt3.googleusercontent.com'],
 	},
 };

@@ -62,10 +62,7 @@ const App = ({ Component, pageProps, router }: AppProps) => {
 		<>
 			<Head>
 				<title>archive</title>
-				<meta
-					name="description"
-					content="preserving the history of the greatest community in the world."
-				/>
+				<meta name="description" content="youtube video archive" />
 				<meta
 					name="viewport"
 					content="minimum-scale=1, initial-scale=1, width=device-width"

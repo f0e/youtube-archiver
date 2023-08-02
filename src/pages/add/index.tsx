@@ -35,8 +35,6 @@ const SearchChannelsResult = ({
 		data: null,
 	});
 
-	const [lastChannelExists, setLastChannelExists] = useState(false);
-
 	const loadChannel = async () => {
 		try {
 			setChannel({
@@ -48,27 +46,10 @@ const SearchChannelsResult = ({
 				channel: channelUrl,
 			});
 
-			const existsCheck = () => {
-				if (!addingMultiple) return false;
-
-				const filteredExists = ['added', 'accepted', 'rejected', 'filtered'];
-				if (filteredExists.includes(data.exists)) {
-					setLastChannelExists(data.exists);
-					return true;
-				}
-
-				setLastChannelExists(false);
-				return false;
-			};
-
-			if (existsCheck()) {
-				getNextChannel();
-			} else {
-				setChannel({
-					data,
-					loading: false,
-				});
-			}
+			setChannel({
+				data,
+				loading: false,
+			});
 		} catch (e: any) {
 			getNextChannel();
 		}
@@ -101,73 +82,79 @@ const SearchChannelsResult = ({
 	};
 
 	const getChannelTools = () => {
-		switch (channel.data.exists) {
-			case 'queued': {
-				return (
-					<AcceptOrReject
-						channelId={channel.data.channel.id}
-						onAcceptReject={onAcceptReject}
-					/>
-				);
+		if (channel.data.exists) {
+			let disabled: ChannelDestination[] = [];
+
+			switch (channel.data.existsCollection) {
+				case 'channels': {
+					disabled = [
+						channel.data.channel.dontDownload ? 'acceptNoDownload' : 'accept',
+					];
+					break;
+				}
+				case 'rejectedChannels': {
+					disabled = ['reject'];
+					break;
+				}
 			}
-			case undefined: {
-				return (
-					<div className={styles.addChannel}>
-						<LoadingButton
-							onClick={() => addChannel('accept')}
-							label="add"
-							loading={destination == 'accept'}
-						/>
-						<LoadingButton
-							onClick={() => addChannel('acceptNoDownload')}
-							variant="outline"
-							label="add (no downloads)"
-							loading={destination == 'acceptNoDownload'}
-						/>
-						<LoadingButton
-							onClick={() => addChannel('reject')}
-							color="red"
-							label="reject"
-							loading={destination == 'reject'}
-						/>
-						<Button
-							variant="outline"
-							onClick={() => getNextChannel()}
-							color="red">
-							don{"'"}t add
-						</Button>
-					</div>
-				);
-			}
+
+			return (
+				<AcceptOrReject
+					channelId={channel.data.channel.id}
+					onAcceptReject={onAcceptReject}
+					onSkip={onAcceptReject}
+					disabled={disabled}
+				/>
+			);
 		}
 
-		return <></>;
+		return (
+			<div className={styles.addChannel}>
+				<LoadingButton
+					onClick={() => addChannel('accept')}
+					label="add"
+					loading={destination == 'accept'}
+				/>
+				<LoadingButton
+					onClick={() => addChannel('acceptNoDownload')}
+					variant="outline"
+					label="add (no downloads)"
+					loading={destination == 'acceptNoDownload'}
+				/>
+				<LoadingButton
+					onClick={() => addChannel('reject')}
+					color="red"
+					label="reject"
+					loading={destination == 'reject'}
+				/>
+				<Button variant="outline" onClick={() => getNextChannel()} color="red">
+					don{"'"}t add
+				</Button>
+			</div>
+		);
 	};
 
 	return (
 		<>
 			{channelsLeft > 0 && (
-				<div className={styles.lastChannelExists}>
+				<div>
 					{channelsLeft} channel{channelsLeft == 1 ? '' : 's'} left
 				</div>
 			)}
 
-			{channel.loading || lastChannelExists ? (
+			{channel.loading ? (
 				<>
 					<Loader message="loading channel" />
-
-					{lastChannelExists && (
-						<span className={styles.lastChannelExists}>
-							last channel was already {lastChannelExists}
-						</span>
-					)}
 				</>
 			) : (
 				<>
 					<br />
 
 					{channel.data.exists && (
-						<h2>channel already {channel.data.exists}</h2>
+						<h2>
+							channel already {channel.data.exists}
+							{channel.data.channel.dontDownload ? ' (not downloading)' : ''}
+						</h2>
 					)}
 
 					<ChannelCard
@@ -194,7 +181,7 @@ const AddSingleChannel = ({
 		},
 	});
 
-	const onSubmit = async (values: typeof form['values']) => {
+	const onSubmit = async (values: (typeof form)['values']) => {
 		searchChannels([values.channelUrl]);
 	};
 
@@ -225,7 +212,7 @@ const AddMultipleChannels = ({
 		},
 	});
 
-	const onSubmit = async (values: typeof form['values']) => {
+	const onSubmit = async (values: (typeof form)['values']) => {
 		searchChannels(values.channelUrls.split('\n'));
 	};
 
