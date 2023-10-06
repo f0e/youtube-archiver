@@ -317,10 +317,10 @@ const VideoPlayer = ({ video, channel }: VideoPlayerProps): ReactElement => {
 						{video.data.categories.join(', ')}
 					</div>
 
-					<div className={styles.youtubeLink}>
+					<div className={`${styles.youtubeLink} ${styles.iconInfo}`}>
 						<ExternalLinkIcon />
 						<a
-							className={styles.videoSong}
+							className={`${styles.videoSong} ${styles.iconInfo}`}
 							href={video.data.original_url}
 							target="_blank"
 							rel="noreferrer">
@@ -330,7 +330,7 @@ const VideoPlayer = ({ video, channel }: VideoPlayerProps): ReactElement => {
 
 					{video.data.track && (
 						<a
-							className={styles.videoSong}
+							className={`${styles.videoSong} ${styles.iconInfo}`}
 							href={`https://www.youtube.com/results?search_query=${video.data.artist} - ${video.data.track}`}>
 							<BarChartIcon className={styles.songIcon} />
 
